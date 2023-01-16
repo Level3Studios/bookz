@@ -15,8 +15,13 @@ struct ContentView: View {
         VStack {
             Button("Fetch", action: {
                 let request = AF.request(networkLayer.buildQuery(withSearch: "+subject:adventure", maxResults: 5))
-                request.responseJSON { data in
-                    print(data)
+                request.responseDecodable(of: BooksResponse.self) { response in
+                    switch response.result {
+                    case .success(let books):
+                        print(books.items.first)
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
                 }
             })
             Image(systemName: "globe")
