@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A57D0B922978A09000559F40 /* GenreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D0B912978A09000559F40 /* GenreType.swift */; };
 		A5AEED75297253BB008EEB82 /* bookzApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AEED74297253BB008EEB82 /* bookzApp.swift */; };
 		A5AEED77297253BB008EEB82 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AEED76297253BB008EEB82 /* ContentView.swift */; };
 		A5AEED79297253BD008EEB82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5AEED78297253BD008EEB82 /* Assets.xcassets */; };
@@ -14,8 +15,12 @@
 		A5AEED86297253BD008EEB82 /* bookzTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AEED85297253BD008EEB82 /* bookzTests.swift */; };
 		A5AEEDA02972546A008EEB82 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A5AEED9F2972546A008EEB82 /* Alamofire */; };
 		A5AEEDA329725640008EEB82 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AEEDA229725640008EEB82 /* NetworkProtocol.swift */; };
-		A5AEEDA5297256A8008EEB82 /* PrivateKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AEEDA4297256A8008EEB82 /* PrivateKeys.swift */; };
 		A5B72F242974C80F007582D7 /* BooksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B72F232974C80F007582D7 /* BooksModel.swift */; };
+		A5B72F262974DE9A007582D7 /* PrivateKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B72F252974DE9A007582D7 /* PrivateKeys.swift */; };
+		A5B72F282974F465007582D7 /* NetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B72F272974F465007582D7 /* NetworkViewModel.swift */; };
+		A5F6C2AA2975DE2D00CBD9F7 /* GenreTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F6C2A92975DE2D00CBD9F7 /* GenreTabView.swift */; };
+		A5F6C2B0297649EE00CBD9F7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F6C2AF297649EE00CBD9F7 /* Extensions.swift */; };
+		A5F6C2B32977914F00CBD9F7 /* DynamicColor in Frameworks */ = {isa = PBXBuildFile; productRef = A5F6C2B22977914F00CBD9F7 /* DynamicColor */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A57D0B912978A09000559F40 /* GenreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreType.swift; sourceTree = "<group>"; };
 		A5AEED71297253BA008EEB82 /* bookz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AEED74297253BB008EEB82 /* bookzApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bookzApp.swift; sourceTree = "<group>"; };
 		A5AEED76297253BB008EEB82 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,8 +51,11 @@
 		A5AEED85297253BD008EEB82 /* bookzTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bookzTests.swift; sourceTree = "<group>"; };
 		A5AEED8B297253BD008EEB82 /* bookzUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bookzUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AEEDA229725640008EEB82 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
-		A5AEEDA4297256A8008EEB82 /* PrivateKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeys.swift; sourceTree = "<group>"; };
 		A5B72F232974C80F007582D7 /* BooksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksModel.swift; sourceTree = "<group>"; };
+		A5B72F252974DE9A007582D7 /* PrivateKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeys.swift; sourceTree = "<group>"; };
+		A5B72F272974F465007582D7 /* NetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewModel.swift; sourceTree = "<group>"; };
+		A5F6C2A92975DE2D00CBD9F7 /* GenreTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreTabView.swift; sourceTree = "<group>"; };
+		A5F6C2AF297649EE00CBD9F7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5AEEDA02972546A008EEB82 /* Alamofire in Frameworks */,
+				A5F6C2B32977914F00CBD9F7 /* DynamicColor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +107,8 @@
 		A5AEED73297253BA008EEB82 /* bookz */ = {
 			isa = PBXGroup;
 			children = (
+				A5F6C2AE297649DD00CBD9F7 /* helpers */,
+				A5F6C2A82975DDEF00CBD9F7 /* home */,
 				A5AEEDA129725629008EEB82 /* network */,
 				A5AEED74297253BB008EEB82 /* bookzApp.swift */,
 				A5AEED76297253BB008EEB82 /* ContentView.swift */,
@@ -126,10 +138,28 @@
 			isa = PBXGroup;
 			children = (
 				A5AEEDA229725640008EEB82 /* NetworkProtocol.swift */,
-				A5AEEDA4297256A8008EEB82 /* PrivateKeys.swift */,
+				A5B72F272974F465007582D7 /* NetworkViewModel.swift */,
 				A5B72F232974C80F007582D7 /* BooksModel.swift */,
+				A5B72F252974DE9A007582D7 /* PrivateKeys.swift */,
 			);
 			path = network;
+			sourceTree = "<group>";
+		};
+		A5F6C2A82975DDEF00CBD9F7 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				A5F6C2A92975DE2D00CBD9F7 /* GenreTabView.swift */,
+				A57D0B912978A09000559F40 /* GenreType.swift */,
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		A5F6C2AE297649DD00CBD9F7 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A5F6C2AF297649EE00CBD9F7 /* Extensions.swift */,
+			);
+			path = helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,6 +180,7 @@
 			name = bookz;
 			packageProductDependencies = (
 				A5AEED9F2972546A008EEB82 /* Alamofire */,
+				A5F6C2B22977914F00CBD9F7 /* DynamicColor */,
 			);
 			productName = bookz;
 			productReference = A5AEED71297253BA008EEB82 /* bookz.app */;
@@ -225,6 +256,7 @@
 			mainGroup = A5AEED68297253BA008EEB82;
 			packageReferences = (
 				A5AEED9E2972546A008EEB82 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				A5F6C2B12977914F00CBD9F7 /* XCRemoteSwiftPackageReference "DynamicColor" */,
 			);
 			productRefGroup = A5AEED72297253BA008EEB82 /* Products */;
 			projectDirPath = "";
@@ -269,9 +301,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5AEED77297253BB008EEB82 /* ContentView.swift in Sources */,
+				A57D0B922978A09000559F40 /* GenreType.swift in Sources */,
+				A5B72F282974F465007582D7 /* NetworkViewModel.swift in Sources */,
 				A5AEED75297253BB008EEB82 /* bookzApp.swift in Sources */,
+				A5F6C2B0297649EE00CBD9F7 /* Extensions.swift in Sources */,
+				A5B72F262974DE9A007582D7 /* PrivateKeys.swift in Sources */,
+				A5F6C2AA2975DE2D00CBD9F7 /* GenreTabView.swift in Sources */,
 				A5AEEDA329725640008EEB82 /* NetworkProtocol.swift in Sources */,
-				A5AEEDA5297256A8008EEB82 /* PrivateKeys.swift in Sources */,
 				A5B72F242974C80F007582D7 /* BooksModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -605,6 +641,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		A5F6C2B12977914F00CBD9F7 /* XCRemoteSwiftPackageReference "DynamicColor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yannickl/DynamicColor";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -612,6 +656,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A5AEED9E2972546A008EEB82 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		A5F6C2B22977914F00CBD9F7 /* DynamicColor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A5F6C2B12977914F00CBD9F7 /* XCRemoteSwiftPackageReference "DynamicColor" */;
+			productName = DynamicColor;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
