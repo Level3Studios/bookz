@@ -8,6 +8,15 @@
         "revision" : "78424be314842833c04bc3bef5b72e85fff99204",
         "version" : "5.6.4"
       }
+    },
+    {
+      "identity" : "dynamiccolor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yannickl/DynamicColor",
+      "state" : {
+        "branch" : "master",
+        "revision" : "cf7c6eed080ea4b678592ae5af987c207ca8a232"
+      }
     }
   ],
   "version" : 2

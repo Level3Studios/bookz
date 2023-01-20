@@ -14,7 +14,8 @@ enum OrderBy: String {
 }
 
 class NetworkProtocol {
-   static let baseURL : String = "https://www.googleapis.com/books/v1/volumes"
+    static let shared = NetworkProtocol()
+    static let baseURL : String = "https://www.googleapis.com/books/v1/volumes"
     
     func buildQuery(withSearch searchTerm: String,
                     orderOption: OrderBy = .newest,
