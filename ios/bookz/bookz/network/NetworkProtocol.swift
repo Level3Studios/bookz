@@ -31,4 +31,16 @@ class NetworkProtocol {
         query += "&key=\(PrivateKeys.APIKey)"
         return query
     }
+    
+    func fetchTop5(forQuery query: String, completion: @escaping (Result<BooksResponse, Error>) -> Void) {
+        let request = AF.request(self.buildQuery(withSearch: query, maxResults: 5))
+        request.responseDecodable(of: BooksResponse.self) { response in
+            switch response.result {
+            case .success(let books):
+                completion(.success(books))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

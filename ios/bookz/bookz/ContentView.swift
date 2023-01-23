@@ -12,10 +12,11 @@ struct ContentView: View {
     @StateObject var viewModel = NetworkViewModel()
     
     var body: some View {
-        VStack {
-            GenreTabView()
+        TabView {
+            HomepageView().tabItem({
+                Label("Home", systemImage: "house")
+            })
         }
-        .padding()
         .environmentObject(viewModel)
         .onAppear {
             viewModel.updateSelectedGenre(genre: .adventure)

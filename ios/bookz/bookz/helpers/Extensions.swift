@@ -42,3 +42,16 @@ public extension UIColor {
         return Color(self)
     }
 }
+
+//MARK: - DateFormatter Extensions -
+public extension String? {
+    
+    func convertPublishedString() -> Date {
+        guard let date = self else {
+            return Date()
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd"
+        return formatter.date(from: date) ?? Date()
+    }
+}
