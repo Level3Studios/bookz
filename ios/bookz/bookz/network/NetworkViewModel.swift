@@ -9,14 +9,16 @@ import Foundation
 import Alamofire
 
 class NetworkViewModel: ObservableObject {
-    // MARK: Private variables
+    // MARK: - Private variables
     private let networkLayer = NetworkProtocol.shared
+    private var fantasyBooks: [BooksModel] = []
+    private var adventureBooks: [BooksModel] = []
+    private var romanceBooks: [BooksModel] = []
+    private var scifiBooks: [BooksModel] = []
     
-    // MARK: Published variables
-    @Published var fantasyBooks: [BooksModel] = []
-    @Published var adventureBooks: [BooksModel] = []
-    @Published var romanceBooks: [BooksModel] = []
-    @Published var scifiBooks: [BooksModel] = []
+    // MARK: - Published variables
+    @Published var top5Books: [BooksModel] = []
+    @Published var scrollIndex: Int = -1
     
     private func needsSearch(genre: GenreType) -> Bool {
         var needsSearch: Bool = true
@@ -33,6 +35,22 @@ class NetworkViewModel: ObservableObject {
         return needsSearch
     }
     
+    public func updateSelectedGenre(genre: GenreType) {
+        scrollIndex = 0
+        guard self.needsSearch(genre: genre) else {
+            self.updateTop5List(forGenre: genre)
+            return
+        }
+        networkLayer.fetchTop5(forQuery: genre.searchString, completion: { response in
+            switch response {
+            case .success(let books):
+                self.updateBooks(response: books.items, genre: genre)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
+    }
+    
     private func updateBooks(response: [BooksModel], genre: GenreType) {
         switch genre {
         case .adventure:
@@ -44,30 +62,19 @@ class NetworkViewModel: ObservableObject {
         case .romance:
             self.romanceBooks = response
         }
+        self.updateTop5List(forGenre: genre)
     }
     
-    public func updateSelectedGenre(genre: GenreType) {
-        guard self.needsSearch(genre: genre) else { return }
-        self.fetchTop5(forQuery: genre.searchString, completion: { response in
-            switch response {
-            case .success(let books):
-                print(books.items.count)
-                self.updateBooks(response: books.items, genre: genre)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        })
-    }
-    
-    private func fetchTop5(forQuery query: String, completion: @escaping (Result<BooksResponse, Error>) -> Void) {
-        let request = AF.request(networkLayer.buildQuery(withSearch: query, maxResults: 5))
-        request.responseDecodable(of: BooksResponse.self) { response in
-            switch response.result {
-            case .success(let books):
-                completion(.success(books))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+    private func updateTop5List(forGenre genre: GenreType) {
+        switch genre {
+        case .adventure:
+            self.top5Books = adventureBooks
+        case .fantasy:
+            self.top5Books = fantasyBooks
+        case .scifi:
+            self.top5Books = scifiBooks
+        case .romance:
+            self.top5Books = romanceBooks
         }
     }
 }

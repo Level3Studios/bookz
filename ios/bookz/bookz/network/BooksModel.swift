@@ -14,13 +14,21 @@ struct BooksResponse: Codable {
 }
 
 // MARK: - BooksModel
-struct BooksModel: Codable {
+struct BooksModel: Codable, Hashable {
     let kind, id, etag: String?
     let selfLink: String?
     let volumeInfo: VolumeInfo?
     let saleInfo: SaleInfo?
     let accessInfo: AccessInfo?
     let searchInfo: SearchInfo?
+    
+    static func == (lhs: BooksModel, rhs: BooksModel) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 // MARK: - AccessInfo
