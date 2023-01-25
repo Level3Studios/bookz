@@ -16,6 +16,9 @@ struct ContentView: View {
             HomepageView().tabItem({
                 Label("Home", systemImage: "house")
             })
+            LibraryView().tabItem({
+                Label("Library", systemImage: "building.columns")
+            })
         }
         .environmentObject(viewModel)
         .onAppear {
