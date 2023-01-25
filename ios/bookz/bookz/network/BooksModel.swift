@@ -14,7 +14,7 @@ struct BooksResponse: Codable {
 }
 
 // MARK: - BooksModel
-struct BooksModel: Codable, Hashable {
+struct BooksModel: Codable, Hashable, Identifiable {
     let kind, id, etag: String?
     let selfLink: String?
     let volumeInfo: VolumeInfo?

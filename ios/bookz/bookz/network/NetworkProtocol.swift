@@ -7,7 +7,7 @@
 
 import Foundation
 import Alamofire
-
+import AlamofireImage
 
 enum OrderBy: String {
     case newest, relevance
@@ -16,8 +16,9 @@ enum OrderBy: String {
 class NetworkProtocol {
     static let shared = NetworkProtocol()
     static let baseURL : String = "https://www.googleapis.com/books/v1/volumes"
+    static let baseSearchURL: String = "https://books.google.com/books/content"
     
-    func buildQuery(withSearch searchTerm: String,
+    private func buildQuery(withSearch searchTerm: String,
                     orderOption: OrderBy = .newest,
                     language: String = "en",
                     type: String = "books",
@@ -38,6 +39,30 @@ class NetworkProtocol {
             switch response.result {
             case .success(let books):
                 completion(.success(books))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func buildCoverQuery(id bookId: String) -> String {
+        var query = Self.baseSearchURL
+        query += "?id=\(bookId)"
+        query += "&printsec=frontcover"
+        query += "&img=1"
+        query += "&zoom=1"
+        query += "&edge=flat"
+        query += "&source=gbs_api"
+        query += "&key=\(PrivateKeys.APIKey)"
+        return query
+    }
+    
+    func fetchImage(forBook bookId: String, completion: @escaping (Result<Image, Error>)-> Void) {
+        let requestURL = self.buildCoverQuery(id: bookId)
+        AF.request(requestURL).responseImage { response in
+            switch response.result {
+            case.success(let image):
+                completion(.success(image))
             case .failure(let error):
                 completion(.failure(error))
             }

@@ -9,11 +9,6 @@ import SwiftUI
 
 struct BookModelListView: View {
     var bookModel: BooksModel
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY"
-        return formatter
-    }()
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8.0) {
@@ -36,7 +31,7 @@ struct BookModelListView: View {
     }
     
     var publishedDate: some View {
-        Text(bookModel.volumeInfo?.publishedDate.convertPublishedString() ?? Date(), formatter: self.dateFormatter)
+        Text(bookModel.volumeInfo?.publishedDate.convertPublishedString() ?? Date(), formatter: DateFormatter.publishedDateFormatter)
             .foregroundColor(.accentColor)
     }
     

@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import Alamofire
+import AlamofireImage
+import SwiftUI
 
 class NetworkViewModel: ObservableObject {
     // MARK: - Private variables
@@ -18,8 +19,10 @@ class NetworkViewModel: ObservableObject {
     
     // MARK: - Published variables
     @Published var top5Books: [BooksModel] = []
-    @Published var scrollIndex: Int = -1
+    @Published var libraryBooks: [BooksModel] = []
+    @Published var bookImage: UIImage?
     
+    //MARK: - Genre Tab
     private func needsSearch(genre: GenreType) -> Bool {
         var needsSearch: Bool = true
         switch genre {
@@ -36,7 +39,6 @@ class NetworkViewModel: ObservableObject {
     }
     
     public func updateSelectedGenre(genre: GenreType) {
-        scrollIndex = 0
         guard self.needsSearch(genre: genre) else {
             self.updateTop5List(forGenre: genre)
             return
@@ -75,6 +77,19 @@ class NetworkViewModel: ObservableObject {
             self.top5Books = scifiBooks
         case .romance:
             self.top5Books = romanceBooks
+        }
+    }
+    
+    //MARK: - Images
+    func fetchPreviewImage(fromBook book: BooksModel?)  {
+        guard let bookId = book?.id else { return }
+        networkLayer.fetchImage(forBook: bookId) { response in
+            switch response {
+            case .success(let image):
+                self.bookImage = image
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
 }

@@ -55,3 +55,12 @@ public extension String? {
         return formatter.date(from: date) ?? Date()
     }
 }
+
+public extension DateFormatter {
+    
+    static let publishedDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY"
+        return formatter
+    }()
+}

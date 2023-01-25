@@ -10,15 +10,22 @@ import SwiftUI
 struct Top5ListView: View {
     @EnvironmentObject private var viewModel: NetworkViewModel
     var books: [BooksModel]
+    @State private var showBookDetail: BooksModel?
     
     var body: some View {
         List {
             Section("Top 5 Books") {
                 ForEach(books, id:\.self) { book in
                     BookModelListView(bookModel: book)
+                        .onTapGesture {
+                            showBookDetail = book
+                        }
                 }
             }
         }.listStyle(PlainListStyle())
+            .sheet(item: $showBookDetail) { book in
+                BookDetailView(book: book)
+            }
     }
 }
 
