@@ -19,6 +19,9 @@ struct ContentView: View {
             LibraryView().tabItem({
                 Label("Library", systemImage: "building.columns")
             })
+            WishlistView().tabItem({
+                Label("Wishlist", systemImage: "star")
+            })
         }
         .environmentObject(viewModel)
         .onAppear {

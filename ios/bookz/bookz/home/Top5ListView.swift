@@ -22,10 +22,11 @@ struct Top5ListView: View {
                         }
                 }
             }
-        }.listStyle(PlainListStyle())
-            .sheet(item: $showBookDetail) { book in
-                BookDetailView(book: book)
-            }
+        }
+        .listStyle(PlainListStyle())
+        .sheet(item: $showBookDetail) { book in
+            BookDetailView(book: book)
+        }
     }
 }
 

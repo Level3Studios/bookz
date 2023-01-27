@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct bookzApp: App {
+    let dbController = DatabaseController.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, dbController.container.viewContext)
         }
     }
 }

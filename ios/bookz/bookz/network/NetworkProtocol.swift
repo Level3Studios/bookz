@@ -68,4 +68,19 @@ class NetworkProtocol {
             }
         }
     }
+    
+    func fetchBook(forId bookId: String, completion: @escaping (Result<BookResponse, Error>) -> Void) {
+        var query = Self.baseURL
+        query += "/\(bookId)"
+        query += "?key=\(PrivateKeys.APIKey)"
+        let request = AF.request(query)
+        request.responseDecodable(of: BookResponse.self) { response in
+            switch response.result {
+            case .success(let bookModel):
+                completion(.success(bookModel))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
