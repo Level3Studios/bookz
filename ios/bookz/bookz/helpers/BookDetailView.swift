@@ -23,6 +23,7 @@ struct BookDetailView: View {
         }
         .padding()
         .onAppear() {
+            viewModel.isBookSaved(book: book)
             viewModel.fetchPreviewImage(fromBook: book)
         }
         .onDisappear() {
@@ -30,19 +31,24 @@ struct BookDetailView: View {
         }
     }
     
+    @ViewBuilder
     var actionButtons: some View {
-        HStack {
-            Button(action: {
-                //TODO: - Add action -
-            }, label: {
-                Label("+ Library", systemImage: "book")
-            })
-            Spacer()
-            Button(action: {
-                //TODO: - Add action -
-            }, label: {
-                Label("+ Wishlist", systemImage: "star")
-            })
+        if viewModel.bookSaved {
+            EmptyView()
+        } else {
+            HStack {
+                Button(action: {
+                    viewModel.saveBook(book: book, forView: .library)
+                }, label: {
+                    Label("+ Library", systemImage: "book")
+                })
+                Spacer()
+                Button(action: {
+                    viewModel.saveBook(book: book, forView: .wishlist)
+                }, label: {
+                    Label("+ Wishlist", systemImage: "star")
+                })
+            }
         }
     }
     
