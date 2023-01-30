@@ -18,6 +18,7 @@ struct BookDetailView: View {
             bookImage
             bookTitle
             bookAuthors
+            bookCategories
             bookDescription
             Spacer()
         }
@@ -80,6 +81,12 @@ struct BookDetailView: View {
                 .foregroundColor(.gray)
             publishedDate
         }
+    }
+    
+    var bookCategories: some View {
+        Text(book?.volumeInfo?.categories ?? [""], format: .list(type: .and))
+            .font(.caption)
+            .foregroundColor(.gray)
     }
     
     var bookDescription: some View {

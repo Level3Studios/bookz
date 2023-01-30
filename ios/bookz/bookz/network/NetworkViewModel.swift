@@ -23,6 +23,7 @@ class NetworkViewModel: ObservableObject {
     @Published var top5Books: [BooksModel] = []
     @Published var libraryBooks: [BooksModel] = []
     @Published var wishlistBooks: [BooksModel] = []
+    @Published var searchResults: [BooksModel] = []
     @Published var bookImage: UIImage?
     @Published var bookSaved: Bool = false
     
@@ -61,7 +62,7 @@ class NetworkViewModel: ObservableObject {
             self.updateTop5List(forGenre: genre)
             return
         }
-        networkLayer.fetchTop5(forQuery: genre.searchString, completion: { response in
+        networkLayer.searchForBooks(withQuery: genre.searchString, maxResults: 5, completion: { response in
             switch response {
             case .success(let books):
                 self.updateBooks(response: books.items, genre: genre)
@@ -192,6 +193,18 @@ class NetworkViewModel: ObservableObject {
             self.libraryBooks.removeAll(where: { $0.id == book?.id })
         case .wishlist:
             self.wishlistBooks.removeAll(where: { $0.id == book?.id })
+        }
+    }
+    
+    //MARK: Search Screen
+    func searchForBooks(withQuery query: String) {
+        networkLayer.searchForBooks(withQuery: query, maxResults: 30) { response in
+            switch response {
+            case .success(let books):
+                self.searchResults = books.items
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
 }

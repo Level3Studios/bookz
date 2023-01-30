@@ -33,8 +33,8 @@ class NetworkProtocol {
         return query
     }
     
-    func fetchTop5(forQuery query: String, completion: @escaping (Result<BooksResponse, Error>) -> Void) {
-        let request = AF.request(self.buildQuery(withSearch: query, maxResults: 5))
+    func searchForBooks(withQuery query: String, maxResults: Int, completion: @escaping (Result<BooksResponse, Error>) -> Void) {
+        let request = AF.request(self.buildQuery(withSearch: query, maxResults: maxResults))
         request.responseDecodable(of: BooksResponse.self) { response in
             switch response.result {
             case .success(let books):

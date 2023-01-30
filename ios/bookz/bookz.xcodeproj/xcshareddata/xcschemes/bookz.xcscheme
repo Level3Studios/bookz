@@ -39,17 +39,6 @@
                ReferencedContainer = "container:bookz.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A5AEED8A297253BD008EEB82"
-               BuildableName = "bookzUITests.xctest"
-               BlueprintName = "bookzUITests"
-               ReferencedContainer = "container:bookz.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
