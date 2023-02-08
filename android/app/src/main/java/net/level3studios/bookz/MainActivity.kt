@@ -1,62 +1,147 @@
 package net.level3studios.bookz
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.snapshotFlow
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.rememberPagerState
-import net.level3studios.bookz.models.GenreType
-import net.level3studios.bookz.network.NetworkLayer
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import net.level3studios.bookz.components.BottomNavItem
+import net.level3studios.bookz.network.NetworkViewModel
 import net.level3studios.bookz.ui.theme.BookzTheme
+import net.level3studios.bookz.views.HomePageView
+import net.level3studios.bookz.views.LibraryView
+import net.level3studios.bookz.views.WishlistView
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val navController = rememberNavController()
+            val viewModel = NetworkViewModel()
             BookzTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.surface
                 ) {
-                    Greeting()
+                    MainContainer(navController = navController, viewModel = viewModel)
                 }
             }
         }
     }
 }
 
-@OptIn(ExperimentalPagerApi::class)
+@RequiresApi(Build.VERSION_CODES.O)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Greeting() {
-    val pagerState = rememberPagerState()
-
-    LaunchedEffect(pagerState) {
-        snapshotFlow { pagerState.currentPage  }.collect { page ->
-            NetworkLayer.searchForBooks(GenreType.getSearchString(page),
-                maxResults = 5)
-        }
-    }
-    HorizontalPager(count = GenreType.values().size,
-    state = pagerState) {page ->
-        Text(text = GenreType.getDisplayLabel(page))
+fun MainContainer(navController: NavHostController, viewModel: NetworkViewModel) {
+    Scaffold(bottomBar = { BottomNavigationBar(navController = navController) }) { padding ->
+        NavigationGraph(
+            navController = navController,
+            viewModel = viewModel,
+            modifier = Modifier.padding(bottom = padding.calculateBottomPadding())
+        )
     }
 }
 
+@Composable
+fun BottomNavigationBar(navController: NavController) {
+    val items = listOf(
+        BottomNavItem.Home,
+        BottomNavItem.Library, BottomNavItem.Wishlist
+    )
+
+    BottomNavigation(backgroundColor = MaterialTheme.colorScheme.primary) {
+        val backStackEntry by navController.currentBackStackEntryAsState()
+        items.forEach { item ->
+            val currentRoute = backStackEntry?.destination?.route
+            val isSelected = currentRoute == item.route
+            val tintColor = if (isSelected) Color.White else Color.Black
+            BottomNavigationItem(icon = {
+                Icon(
+                    painterResource(id = item.icon),
+                    contentDescription = item.title,
+                    tint = tintColor
+                )
+            },
+                label = {
+                    Text(
+                        text = item.title,
+                        fontWeight = FontWeight.Bold, color = tintColor
+                    )
+                },
+                alwaysShowLabel = true,
+                selected = isSelected,
+                onClick = {
+                    navController.navigate(item.route) {
+                        navController.graph.startDestinationRoute.let { route ->
+                            if (route != null) {
+                                popUpTo(route) {
+                                    saveState = true
+                                }
+
+                            }
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+
+                })
+        }
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun NavigationGraph(
+    navController: NavHostController,
+    viewModel: NetworkViewModel,
+    modifier: Modifier
+) {
+    NavHost(
+        navController = navController,
+        startDestination = BottomNavItem.Home.route,
+        modifier = modifier
+    ) {
+        composable(BottomNavItem.Home.route) {
+            HomePageView(viewModel)
+        }
+        composable(BottomNavItem.Library.route) {
+            LibraryView()
+        }
+        composable(BottomNavItem.Wishlist.route) {
+            WishlistView()
+        }
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DefaultPreview() {
-    BookzTheme(useDarkTheme = true) {
-        Greeting()
+    BookzTheme(useDarkTheme = false) {
+        MainContainer(
+            navController = rememberNavController(),
+            viewModel = NetworkViewModel()
+        )
     }
 }
