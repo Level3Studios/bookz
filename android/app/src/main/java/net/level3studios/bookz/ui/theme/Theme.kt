@@ -1,12 +1,21 @@
 package net.level3studios.bookz.ui.theme
 
+import android.app.Activity
+import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.ViewCompat
+import androidx.compose.material.Colors
 
 private val LightColors = lightColorScheme(
     primary = md_theme_light_primary,
@@ -67,43 +76,53 @@ private val DarkColors = darkColorScheme(
     inversePrimary = md_theme_dark_inversePrimary,
 )
 
-val customBlue: Color
-@Composable
-get() = if (isSystemInDarkTheme()) dark_MaterialBlue else light_MaterialBlue
+val Colors.customBlue: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) dark_CustomBlue else light_CustomBlue
 
-val customRed: Color
-@Composable
-get() = if (isSystemInDarkTheme()) dark_MaterialRed else light_MaterialRed
+val Colors.customBlueContainer: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) dark_CustomBlueContainer else light_CustomBlueContainer
 
-val customPurple: Color
-@Composable
-get() = if (isSystemInDarkTheme()) dark_MaterialPurple else light_MaterialPurple
+val Colors.customOrange: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) dark_CustomOrange else light_CustomOrange
 
-val customOrange: Color
-@Composable
-get() = if (isSystemInDarkTheme()) dark_MaterialOrange else light_MaterialOrange
+val Colors.customOrangeContainer: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) dark_CustomOrangeContainer else light_CustomOrangeContainer
 
-val customGreen: Color
-@Composable
-get() = if(isSystemInDarkTheme()) dark_MaterialGreen else light_MaterialGreen
+val Colors.customGreen: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) dark_CustomGreen else light_CustomGreen
 
-val customYellow: Color
-@Composable
-get() = if(isSystemInDarkTheme()) dark_MaterialYellow else light_MaterialYellow
+val Colors.customGreenContainer: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) dark_CustomGreenContainer else light_CustomGreenContainer
+
+val Colors.customPink: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) dark_CustomPink else light_CustomPink
+
+val Colors.customPinkContainer: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) dark_CustomPinkContainer else light_CustomPinkContainer
 
 @Composable
 fun BookzTheme (
-  useDarkTheme: Boolean = isSystemInDarkTheme(),
-  content: @Composable() () -> Unit
+    useDarkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable() () -> Unit
 ) {
-  val colors = if (!useDarkTheme) {
-    LightColors
-  } else {
-    DarkColors
-  }
+    val colors = if (!useDarkTheme) {
+        LightColors
+    } else {
+        DarkColors
+    }
 
-  MaterialTheme(
-    colorScheme = colors,
-    content = content
-  )
+    MaterialTheme(
+        colorScheme = colors,
+        shapes = Shapes,
+        typography = Typography,
+        content = content
+    )
 }
