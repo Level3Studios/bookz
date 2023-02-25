@@ -36,7 +36,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            val viewModel = NetworkViewModel()
+            val viewModel =
+                NetworkViewModel.modelWithContext()
             BookzTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -54,7 +55,12 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainContainer(navController: NavHostController, viewModel: NetworkViewModel) {
-    Scaffold(bottomBar = { BottomNavigationBar(navController = navController) }) { padding ->
+    Scaffold(bottomBar = {
+        BottomNavigationBar(
+            navController = navController,
+            viewModel = viewModel
+        )
+    }) { padding ->
         NavigationGraph(
             navController = navController,
             viewModel = viewModel,
@@ -64,10 +70,11 @@ fun MainContainer(navController: NavHostController, viewModel: NetworkViewModel)
 }
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
+fun BottomNavigationBar(navController: NavController, viewModel: NetworkViewModel) {
     val items = listOf(
         BottomNavItem.Home,
-        BottomNavItem.Library, BottomNavItem.Wishlist
+        BottomNavItem.Library,
+        BottomNavItem.Wishlist
     )
 
     BottomNavigation(backgroundColor = MaterialTheme.colorScheme.primary) {
@@ -86,12 +93,14 @@ fun BottomNavigationBar(navController: NavController) {
                 label = {
                     Text(
                         text = item.title,
-                        fontWeight = FontWeight.Bold, color = tintColor
+                        fontWeight = FontWeight.Bold,
+                        color = tintColor
                     )
                 },
                 alwaysShowLabel = true,
                 selected = isSelected,
                 onClick = {
+                    item.viewTypes?.let { viewModel.updateList(it) }
                     navController.navigate(item.route) {
                         navController.graph.startDestinationRoute.let { route ->
                             if (route != null) {
@@ -104,7 +113,6 @@ fun BottomNavigationBar(navController: NavController) {
                         launchSingleTop = true
                         restoreState = true
                     }
-
                 })
         }
     }
@@ -126,10 +134,10 @@ fun NavigationGraph(
             HomePageView(viewModel)
         }
         composable(BottomNavItem.Library.route) {
-            LibraryView()
+            LibraryView(viewModel)
         }
         composable(BottomNavItem.Wishlist.route) {
-            WishlistView()
+            WishlistView(viewModel)
         }
     }
 }
@@ -141,7 +149,7 @@ fun DefaultPreview() {
     BookzTheme(useDarkTheme = false) {
         MainContainer(
             navController = rememberNavController(),
-            viewModel = NetworkViewModel()
+            viewModel = NetworkViewModel.modelWithContext()
         )
     }
 }
