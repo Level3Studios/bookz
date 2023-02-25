@@ -1,5 +1,25 @@
 package net.level3studios.bookz.network
 
+data class BookResponse(
+    val kind: String,
+    val id: String?,
+    val etag: String?,
+    val volumeInfo: VolumeInfo?,
+    val saleInfo: SaleInfo?,
+    val accessInfo: AccessInfo?
+) {
+
+    fun convertToModel(): BooksModel {
+        return BooksModel(
+            kind,
+            id,
+            etag,
+            volumeInfo = volumeInfo,
+            saleInfo = saleInfo,
+            accessInfo = accessInfo
+        )
+    }
+}
 
 data class BooksResponse(
     val kind: String,
@@ -88,6 +108,24 @@ data class VolumeInfo(
                 this.averageRating.toString()
             } else {
                 return "0.0"
+            }
+        }
+
+    val authorList: String
+        get() {
+            return if (this.authors?.isNotEmpty() == true) {
+                this.authors.joinToString(separator = ",")
+            } else {
+                return ""
+            }
+        }
+
+    val categoryList: String
+        get() {
+            return if (this.categories?.isNotEmpty() == true) {
+                this.categories.joinToString(separator = ",")
+            } else {
+                return ""
             }
         }
 }

@@ -23,15 +23,6 @@ enum class GenreType(val id: Int) {
             }
         }
         @Composable
-        fun GenreType.getPrimaryColor(): Color {
-            return when (this) {
-                ADVENTURE -> MaterialTheme.colors.customBlue
-                FANTASY -> MaterialTheme.colors.customOrange
-                SCIFI -> MaterialTheme.colors.customGreen
-                ROMANCE -> MaterialTheme.colors.customPink
-            }
-        }
-        @Composable
         fun GenreType.getPrimaryContainer(): Color {
             return when (this) {
                 ADVENTURE -> MaterialTheme.colors.customBlueContainer

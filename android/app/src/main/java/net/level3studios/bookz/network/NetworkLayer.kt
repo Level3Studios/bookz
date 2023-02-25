@@ -42,9 +42,49 @@ object NetworkLayer {
         }
     }
 
+    fun fetchImageSearch(bookId: String): String {
+        val key = PrivateKeys.APIKey
+        return baseSearchURL +
+                "?id=$bookId" +
+                "&printsec=frontcover" +
+                "&img=1" +
+                "&zoom=1" +
+                "&edge=flat" +
+                "&source=gbs_api" +
+                "&key=$key"
+    }
+
+    fun fetchBook(
+        bookId: String,
+        responseHandler: (result: BooksModel) -> Unit?
+    ) {
+        val key = PrivateKeys.APIKey
+        val query = baseURL +
+                "/$bookId" +
+                "?key=$key"
+        query.httpGet().responseObject(BookResponseDeserializer()) { _, _, result ->
+            when (result) {
+                is Result.Failure -> {
+                    throw Exception(result.getException())
+                }
+                is Result.Success -> {
+                    val (data, _) = result
+                    data?.let {
+                        responseHandler.invoke(it.convertToModel())
+                    }
+                }
+            }
+        }
+    }
+
 
     class BooksResponseDeserializer : ResponseDeserializable<BooksResponse> {
         override fun deserialize(reader: Reader): BooksResponse =
             Gson().fromJson(reader, BooksResponse::class.java)
+    }
+
+    class BookResponseDeserializer : ResponseDeserializable<BookResponse> {
+        override fun deserialize(reader: Reader): BookResponse =
+            Gson().fromJson(reader, BookResponse::class.java)
     }
 }
