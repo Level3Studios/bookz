@@ -70,13 +70,11 @@
               <th
                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center"
               >
-                {#await viewModel.getBookImage(book.id) then cover}
-                  <img
-                    src={cover}
-                    class="h-12 w-12 bg-white rounded-full border"
-                    alt="..."
-                  />
-                {/await}
+                <img
+                  src={book.volumeInfo.imageLinks.thumbnail}
+                  class="h-12 w-12 bg-white rounded-full border"
+                  alt="..."
+                />
                 <a
                   use:link
                   href="/"

@@ -37,15 +37,8 @@ namespace GenreTypes {
   }
 }
 
-//interface for export
-interface GenreItem {
-  id: number;
-  type: GenreTypes;
-  searchText: string;
-}
-
 //class for UI
-export class GenreCard implements GenreItem {
+export class GenreCard {
   id: number;
   type: GenreTypes;
   searchText: string;

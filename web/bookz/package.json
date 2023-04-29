@@ -33,6 +33,7 @@
     "@popperjs/core": "^2.11.7",
     "dayjs": "^1.11.7",
     "svelte-routing": "^1.6.0",
-    "svelte-simple-modal": "^1.5.2"
+    "svelte-simple-modal": "^1.5.2",
+    "vercel": "^28.20.0"
   }
 }

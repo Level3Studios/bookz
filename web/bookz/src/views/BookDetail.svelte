@@ -14,13 +14,11 @@
     <div class="flex flex-wrap justify-center">
       <div class="w-full px-4 flex justify-center">
         <div class="relative">
-          {#await viewModel.getBookImage(book.id) then cover}
-            <img
-              alt="book cover"
-              src={cover}
-              class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
-            />
-          {/await}
+          <img
+            alt="book cover"
+            src={book.volumeInfo.imageLinks.thumbnail}
+            class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
+          />
         </div>
       </div>
       <div class="w-full px-4 text-center mt-32">

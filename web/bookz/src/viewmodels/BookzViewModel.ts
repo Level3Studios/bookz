@@ -3,7 +3,6 @@ import type { BookModel } from "../network/BookzInterface";
 import { allGenreCards } from "../network/GenreType";
 import dayjs from "dayjs";
 const baseURL: string = "https://www.googleapis.com/books/v1/volumes";
-const baseSearchURL: string = "https://books.google.com/books/content";
 const APIKey: string = import.meta.env.VITE_GOOGLE_API_KEY;
 
 export class BookzViewModel {
@@ -40,26 +39,6 @@ export class BookzViewModel {
     query += `&maxResults=${maxResults.toString()}`;
     query += `&key=${APIKey}`;
     return query;
-  }
-
-  private buildCoverQuery(bookId: string): string {
-    var query = baseSearchURL;
-    query += `?id=${bookId}`;
-    query += "&printsec=frontcover";
-    query += "&img=1";
-    query += "&zoom=1";
-    query += "&edge=flat";
-    query += "&source=gbs_api";
-    query += `&key=${APIKey}`;
-    return query;
-  }
-
-  public async getBookImage(bookId: string): Promise<string> {
-    let query = this.buildCoverQuery(bookId);
-    let response = await fetch(query);
-    let image = await response.blob();
-    let responseURL = URL.createObjectURL(image);
-    return responseURL;
   }
 
   private async searchForBooks(
