@@ -489,4 +489,4 @@ package
 
 # End of https://www.toptal.com/developers/gitignore/api/node,svelte,visualstudiocode
 /ios/bookz/bookz/network/PrivateKeys.swift
-/android/app/src/main/java/net/level3studios/bookz/network/PrivateKeys.kt
+/android/bookz/app/src/main/java/net/level3studios/bookz/network/PrivateKeys.kt
